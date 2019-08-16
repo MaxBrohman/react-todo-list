@@ -5,14 +5,15 @@ import SearchPanel from '../search-panel';
 import TodoList from '../todo-list';
 import ItemStatusFilter from '../item-status-filter';
 import ItemAddForm from '../item-add-form';
+import { IAppState, IToDo } from '../../typings/app';
 
-import './app.css';
+import './app.sass';
 
 export default class App extends React.Component {
-
+	public state: IAppState;
 	//in state we have array of todo items list data, serach bar value and value of active filter button
-	constructor(){
-		super();
+	constructor(props: {}){
+		super(props);
 		this.state = {
 			todoData: [], 
 			term: '', 
@@ -20,8 +21,9 @@ export default class App extends React.Component {
 		};
 	}
 
-	deleteItem(id){
-		this.setState(({ todoData }) => {
+	private deleteItem(id: number): void {
+		this.setState((state: IAppState): IAppState => {
+			const { todoData } = state;
 			const idx = todoData.findIndex((el) => el.id === id);
 
 			const newArray = [
@@ -30,13 +32,14 @@ export default class App extends React.Component {
 			];
 
 			return {
+				...state,
 				todoData: newArray
 			};
 		});
 	};
 
 	//unique id generates by milliseconds count
-	createItem (text) {
+	private createItem (text: string): IToDo {
 		return {
 			label: text,
 			important: false,
@@ -45,41 +48,46 @@ export default class App extends React.Component {
 		}
 	};
 
-	addItem (text){
-		this.setState(({ todoData }) => {
+	private addItem (text: string): void {
+		this.setState((state: IAppState): IAppState => {
+			const { todoData } = state;
 			const newArr = [
 				...todoData,
 				this.createItem(text)
 			];
+
 			return {
+				...state,
 				todoData: newArr
 			};
 		});
 	};
 
 	//changing done or important property of todo list item
-	toggleProperty(prop, id){
-		this.setState(({ todoData }) => {
+	private toggleProperty(prop: string, id: number): void {
+		this.setState((state: IAppState): IAppState => {
+			const { todoData } = state;
 			const idx = todoData.findIndex((el) => el.id === id);
-			const oldItem = todoData[idx];
+			const oldItem: any = todoData[idx];
 			const newItem = { ...oldItem, [prop]: !oldItem[prop] };
 			const newArr = [...todoData.slice(0, idx), newItem, ...todoData.slice(idx+1)];
 			return {
+				...state,
 				todoData: newArr
 			};
 		});
 	};
 
 	//filter items by searhbar input
-	searchTodos(items, term){
+	private searchTodos(items: IToDo[], term: string): IToDo[]{
 		if(!term.length){
 			return items;
 		}
-		return items.filter(item =>  item.label.toLowerCase().indexOf(term.toLowerCase()) > -1);
+		return items.filter(item => item.label.toLowerCase().indexOf(term.toLowerCase()) > -1);
 	};
 
 	//filter items by filter buttons input
-	filterTodos(items, filter){
+	private filterTodos(items: IToDo[], filter: string): IToDo[] {
 		switch(filter){
 			case 'active':
 				return items.filter(item => !item.done);
@@ -91,11 +99,11 @@ export default class App extends React.Component {
 	}
 
 	//changing filter or term state property on child components input
-	onStatePropChange(prop, value){
+	private onStatePropChange(prop: string, value: string): void {
 		this.setState({ [prop]: value });
 	};
 
-	render() {
+	public render(): JSX.Element {
 		const dataToShow = this.filterTodos(this.searchTodos(this.state.todoData, this.state.term), this.state.filter);
 
 		const doneCount = this.state.todoData.filter(item => item.done).length;

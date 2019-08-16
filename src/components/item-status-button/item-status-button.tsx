@@ -1,8 +1,9 @@
 import React from 'react';
+import { IItemStatusButtonProps } from '../../typings/item-status-button';
 
-import './item-status-button.css';
+import './item-status-button.sass';
 
-const ItemStatusButton = (props) => {
+const ItemStatusButton = (props: IItemStatusButtonProps): JSX.Element => {
 
     const isActive = (props.name === props.filter);
 

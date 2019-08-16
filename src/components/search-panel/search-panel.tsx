@@ -1,25 +1,29 @@
 import React from 'react';
+import { ISearchPanelProps, ISearchPanelState } from '../..//typings/search-panel';
 
-import './search-panel.css';
+import './search-panel.sass';
 
 export default class SearchPanel extends React.Component{
-	constructor(){
-		super();
+	public props: ISearchPanelProps;
+	public state: ISearchPanelState;
+	constructor(props: ISearchPanelProps){
+		super(props);
 		this.state = {
 			term: ''
 		};
+		this.props = props;
 	};
 	
 	//changing state on input to have a controlled componenr and send data to App component	
-	onInputChange(evt){
-		const term = evt.target.value;
+	onInputChange(evt: React.ChangeEvent): void {
+		const term = (evt.target as HTMLInputElement).value;
 		this.setState({
 			term
 		});
 		this.props.onInputChange(term);
 	}
 
-	render(){
+	public render(): JSX.Element {
 		return (
 			<input type="text"
 				className="form-control search-input"

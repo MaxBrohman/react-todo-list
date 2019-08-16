@@ -1,25 +1,27 @@
 import React from 'react';
+import { IItemAddFormProps, IItemAddFormState } from '../../typings/item-add-form';
 
-import './item-add-form.css';
+import './item-add-form.sass';
 
 export default class ItemAddForm extends React.Component {
-
-  	constructor(){
-		super();
-		
+	public state: IItemAddFormState;
+	public props: IItemAddFormProps;
+  	constructor(props: IItemAddFormProps){
+		super(props);
+		this.props = props;
 		this.state = {
 			label: ''
 		};
   	};
 
 	//update state on change event to have a controlled component
-	onLabelChange(evt){
+	private onLabelChange(evt: React.ChangeEvent): void{
 		this.setState({
-			label: evt.target.value
+			label: (evt.target as HTMLInputElement).value
 		});
 	};
 
-	onFormSubmit(evt){
+	private onFormSubmit(evt: React.FormEvent): void{
 		evt.preventDefault();
 		this.props.onItemAdded(this.state.label);
 		this.setState({
@@ -27,7 +29,7 @@ export default class ItemAddForm extends React.Component {
 		});
 	};
 
-	render() {
+	public render(): JSX.Element {
 		return (
 			<form 
 				className="item-add-form d-flex" 

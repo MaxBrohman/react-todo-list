@@ -1,9 +1,9 @@
 import React from 'react';
-
+import { ITodoListProps } from '../../typings/todo-list';
 import TodoListItem from '../todo-list-item';
-import './todo-list.css';
+import './todo-list.sass';
 
-const TodoList = (props) => {
+const TodoList = (props: ITodoListProps): JSX.Element => {
 	const { todos, onDeleted, onToggleDone, onToggleImportant } = props;
 	//update items list on App todoData array change
 	const elements = todos.map(item => {

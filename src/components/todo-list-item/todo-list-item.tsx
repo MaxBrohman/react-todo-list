@@ -1,10 +1,14 @@
 import React, { Component } from 'react';
-
-import './todo-list-item.css';
+import { ITodoListItemProps } from '../../typings/todo-list-item';
+import './todo-list-item.scss';
 
 export default class TodoListItem extends Component {
-
-	render() {
+	public props: ITodoListItemProps;
+	constructor(props: ITodoListItemProps){
+		super(props);
+		this.props = props;
+	}
+	public render(): JSX.Element {
 		const { label, onDeleted, onToggleImportant, onToggleDone, done, important } = this.props;
 
 		let classNames = 'todo-list-item';

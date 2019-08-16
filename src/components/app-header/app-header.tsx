@@ -1,7 +1,9 @@
 import React from 'react';
-import './app-header.css';
+import { IAppHeaderProps } from '../../typings/app-header';
 
-const AppHeader = ({ toDo, done }) => {
+import './app-header.sass';
+
+const AppHeader = ({ toDo, done }: IAppHeaderProps): JSX.Element => {
 	return (
 		<div className="app-header d-flex">
 			<h1>Todo List</h1>
