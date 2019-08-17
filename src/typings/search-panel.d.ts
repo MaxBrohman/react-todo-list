@@ -1,6 +1,4 @@
 export interface ISearchPanelProps {
-    onInputChange: (prop: string) => void;
-}
-export interface ISearchPanelState {
+    onInput: (prop: string) => void;
     term: string;
 }

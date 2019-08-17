@@ -4,40 +4,34 @@ import { IItemStatusFilterProps, IItemStatusFilterButton } from '../../typings/i
 
 import './item-status-filter.sass';
 
+const buttons: IItemStatusFilterButton[] = [
+	{name: 'all', label: 'All'},
+	{name: 'active', label: 'Active'},
+	{name: 'done', label: 'Done'}
+];
 
-export default class ItemStatusFilter extends Component {
-	public props: IItemStatusFilterProps;
-	constructor(props: IItemStatusFilterProps){
-		super(props);
-		this.props = props;
-	}
+// creates ui for each button type
+const ItemStatusFilter = (props: IItemStatusFilterProps): JSX.Element => {
 
-	private buttons: IItemStatusFilterButton[] = [
-		{name: 'all', label: 'All'},
-		{name: 'active', label: 'Active'},
-		{name: 'done', label: 'Done'}
-	];
-
-	public render(): JSX.Element {
-		
-		const buttons = this.buttons.map(({ name, label }: IItemStatusFilterButton): JSX.Element => {
-			return (
-				<ItemStatusButton 
-					key={ name } 
-					name={ name } 
-					label={ label } 
-					filter={ this.props.filter } 
-					onFilterChange={ this.props.onFilterChange }/>
-			);
-		});
-
+	const filteredButtons = buttons.map(({ name, label }: IItemStatusFilterButton): JSX.Element => {
 		return (
-
-			<div className="btn-group">
-
-				{ buttons }
-				
-			</div>
+			<ItemStatusButton 
+				key={ name } 
+				name={ name } 
+				label={ label } 
+				filter={props.filter } 
+				onFilterChange={ props.onFilterChange }/>
 		);
-	}
+	});
+
+	return (
+
+		<div className="btn-group">
+
+			{ filteredButtons }
+			
+		</div>
+	);
 };
+
+export default ItemStatusFilter;

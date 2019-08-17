@@ -1,35 +1,39 @@
 import React from 'react';
-import { ISearchPanelProps, ISearchPanelState } from '../..//typings/search-panel';
+import { ISearchPanelProps } from '../..//typings/search-panel';
+import { IState } from '../../typings/reducer';
+import { Dispatch } from 'redux';
+import { searchOnInput } from '../../actions';
+import { connect } from 'react-redux';
 
 import './search-panel.sass';
 
-export default class SearchPanel extends React.Component{
-	public props: ISearchPanelProps;
-	public state: ISearchPanelState;
-	constructor(props: ISearchPanelProps){
-		super(props);
-		this.state = {
-			term: ''
-		};
-		this.props = props;
-	};
+const SearchPanel = (props: ISearchPanelProps): JSX.Element => {
 	
 	//changing state on input to have a controlled componenr and send data to App component	
-	onInputChange(evt: React.ChangeEvent): void {
+	const onInputChange = (evt: React.ChangeEvent): void => {
 		const term = (evt.target as HTMLInputElement).value;
-		this.setState({
-			term
-		});
-		this.props.onInputChange(term);
-	}
-
-	public render(): JSX.Element {
-		return (
-			<input type="text"
-				className="form-control search-input"
-				placeholder="type to search" 
-				value={ this.state.term }
-				onChange={ this.onInputChange.bind(this) }/>
-		);
+		props.onInput(term);
 	};
+
+	return (
+		<input type="text"
+			className="form-control search-input"
+			placeholder="type to search" 
+			value={ props.term }
+			onChange={ onInputChange }/>
+	);
 };
+
+const mapStateToProps = (state: IState): { term: string } => {
+	return {
+		term: state.term
+	}
+};
+
+const mapDispatchToProps = (dispatch: Dispatch) => {
+	return {
+		onInput: (term: string) => dispatch(searchOnInput(term))
+	}
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(SearchPanel);

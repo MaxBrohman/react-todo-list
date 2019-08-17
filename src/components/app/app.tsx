@@ -115,7 +115,7 @@ export default class App extends React.Component {
 					toDo={ todoCount } 
 					done={ doneCount } />
 				<div className="top-panel d-flex">
-					<SearchPanel onInputChange={ this.onStatePropChange.bind(this, 'term') }/>
+					<SearchPanel />
 					<ItemStatusFilter 
 						filter={ this.state.filter }
 						onFilterChange={ this.onStatePropChange.bind(this, 'filter') }/>
