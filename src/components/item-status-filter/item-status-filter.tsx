@@ -1,4 +1,4 @@
-import React, { Component } from 'react';
+import React from 'react';
 import ItemStatusButton from '../item-status-button';
 import { IItemStatusFilterProps, IItemStatusFilterButton } from '../../typings/item-status-filter';
 

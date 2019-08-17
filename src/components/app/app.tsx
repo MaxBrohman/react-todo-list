@@ -38,31 +38,6 @@ export default class App extends React.Component {
 		});
 	};
 
-	//unique id generates by milliseconds count
-	private createItem (text: string): IToDo {
-		return {
-			label: text,
-			important: false,
-			done: false,
-			id: (new Date).getTime()
-		}
-	};
-
-	private addItem (text: string): void {
-		this.setState((state: IAppState): IAppState => {
-			const { todoData } = state;
-			const newArr = [
-				...todoData,
-				this.createItem(text)
-			];
-
-			return {
-				...state,
-				todoData: newArr
-			};
-		});
-	};
-
 	//changing done or important property of todo list item
 	private toggleProperty(prop: string, id: number): void {
 		this.setState((state: IAppState): IAppState => {
@@ -127,7 +102,7 @@ export default class App extends React.Component {
 					onToggleDone={ this.toggleProperty.bind(this, 'done') }
 					onToggleImportant={ this.toggleProperty.bind(this, 'important') }/>
 
-				<ItemAddForm onItemAdded={ this.addItem.bind(this) }/>
+				<ItemAddForm />
 			</div>
 		);
 	}

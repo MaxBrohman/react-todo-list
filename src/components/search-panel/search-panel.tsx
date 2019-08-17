@@ -30,7 +30,7 @@ const mapStateToProps = (state: IState): { term: string } => {
 	}
 };
 
-const mapDispatchToProps = (dispatch: Dispatch) => {
+const mapDispatchToProps = (dispatch: Dispatch): {onInput: (term: string) => void} => {
 	return {
 		onInput: (term: string) => dispatch(searchOnInput(term))
 	}

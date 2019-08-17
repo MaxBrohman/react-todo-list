@@ -1,7 +1,10 @@
-export interface IItemAddFormState {
+export interface IItemAddFormProps {
+    onInput: (label: string) => void;
+    onSubmit: (label: string) => void;
     label: string;
 }
 
-export interface IItemAddFormProps {
-    onItemAdded: (text: string) => void;
+export interface ImapDispatchToProps {
+    onInput: (label: string) => void;
+    onSubmit: (label: string) => void;
 }

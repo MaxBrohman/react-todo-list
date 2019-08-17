@@ -7,7 +7,8 @@ const initialState = {
     term: '', 
     filter: 'all',
     loading: false,
-    error: false
+    error: false,
+    newTaskLabel: ''
 };
 
 // helper function to find index of needed element in array
@@ -82,6 +83,11 @@ export const reducer = (state: IState = initialState, action: IUpdatedAction): I
             return {
                 ...state,
                 todoData: [...state.todoData.slice(0, changedTaskIdx), changedTask, ...state.todoData.slice(changedTaskIdx + 1)]
+            }
+        case 'ADD_FORM_INPUT':
+            return {
+                ...state,
+                newTaskLabel: action.payload
             }
         default:
             return state;

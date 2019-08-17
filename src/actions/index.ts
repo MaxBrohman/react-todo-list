@@ -1,4 +1,4 @@
-import { IUpdatedAction, IToDo } from '../typings/reducer';
+import { IUpdatedAction } from '../typings/reducer';
 
 export const tasksLoaded = (): IUpdatedAction => ({
     type: 'LOADED'
@@ -12,10 +12,19 @@ export const errorOccured = (): IUpdatedAction => ({
     type: 'ERROR'
 });
 
-export const itemAdded = (newItem: IToDo): IUpdatedAction => ({
-    type: 'ITEM_ADDED',
-    payload: newItem
-});
+//unique id generates by milliseconds count
+export const itemAdded = (label: string): IUpdatedAction => {
+    const newItem = {
+        label,
+        important: false,
+        done: false,
+        id: (new Date).getTime()
+    };
+    return {
+        type: 'ITEM_ADDED',
+        payload: newItem
+    }
+};
 
 export const itemDeleted = (id: number): IUpdatedAction => ({
     type: 'ITEM_DELETED',
@@ -41,6 +50,12 @@ export const searchOnInput = (term: string): IUpdatedAction => ({
 });
 
 export const taskStatusChanged = (props: {id: number, prop: string} ): IUpdatedAction => ({
-    type: 'SHOW_SEARCHED_TASKS',
+    type: 'TASK_STATUS_CHANGED',
     payload: props
 });
+
+export const addFormInput = (term: string): IUpdatedAction => ({
+    type: 'ADD_FORM_INPUT',
+    payload: term
+});
+

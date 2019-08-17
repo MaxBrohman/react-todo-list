@@ -12,6 +12,7 @@ export interface IState {
     error: boolean;
     dataToShow: IToDo[];
     searchedTodos: IToDo[];
+    newTaskLabel: string;
 }
 
 export interface IToDo {

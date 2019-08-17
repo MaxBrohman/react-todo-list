@@ -1,5 +1,8 @@
 import React, { Component } from 'react';
 import { ITodoListItemProps } from '../../typings/todo-list-item';
+import { connect } from 'react-redux';
+import { IState } from '../../typings/reducer';
+
 import './todo-list-item.scss';
 
 export default class TodoListItem extends Component {
@@ -45,3 +48,6 @@ export default class TodoListItem extends Component {
 	};
 }
 
+const mapStateToProps = (state: IState): any => ({
+	
+});
