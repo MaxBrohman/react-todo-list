@@ -2,7 +2,8 @@ export interface ITodoListItemProps {
     label: string;
     done: boolean;
     important: boolean;
-    onDeleted: () => void;
-    onToggleDone: () => void;
-    onToggleImportant: () => void;
+    id: number;
+    onDeleted: (id: number) => void;
+    onToggleDone: (id: number) => void;
+    onToggleImportant: (id: number) => void;
 }

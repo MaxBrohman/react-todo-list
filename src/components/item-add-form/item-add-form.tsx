@@ -2,7 +2,7 @@ import React from 'react';
 import { IItemAddFormProps, ImapDispatchToProps } from '../../typings/item-add-form';
 import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
-import { addFormInput, itemAdded } from '../../actions';
+import { addFormInput, newItemCreated } from '../../actions';
 import { IState } from '../../typings/reducer';
 
 import './item-add-form.sass';
@@ -46,7 +46,7 @@ const mapStateToProps = (state: IState): { label: string } => {
 const mapDispatchToProps = (dispatch: Dispatch): ImapDispatchToProps => {
 	return {
 		onInput: (label: string) => dispatch(addFormInput(label)),
-		onSubmit: (label: string) => dispatch(itemAdded(label))
+		onSubmit: (label: string) => dispatch(newItemCreated(label))
 	}
 };
 

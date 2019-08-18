@@ -1,4 +1,4 @@
 export interface IAppHeaderProps {
-    toDo: number;
-    done: number;
+    activeCount: number;
+    unactiveCount: number;
 }

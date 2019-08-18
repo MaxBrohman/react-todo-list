@@ -1,24 +1,24 @@
 import React from 'react';
 import { ITodoListProps } from '../../typings/todo-list';
 import TodoListItem from '../todo-list-item';
+import { connect } from 'react-redux';
+import { IState, IToDo } from '../../typings/reducer';
+
 import './todo-list.sass';
 
 const TodoList = (props: ITodoListProps): JSX.Element => {
-	const { todos, onDeleted, onToggleDone, onToggleImportant } = props;
+	const { dataToShow } = props;
 	//update items list on App todoData array change
-	const elements = todos.map(item => {
+	const elements = dataToShow.map(item => {
 		const { id, ...itemProps } = item;
 		return (
 			<li key={ id } className="list-group-item">
 				<TodoListItem
 					{ ...itemProps }
-					onDeleted={ () => onDeleted(id) }
-					onToggleDone={ () => onToggleDone(id) }
-					onToggleImportant={ () => onToggleImportant(id) }/>
+					id={ id } />
 			</li>
 		);
 	});
-
 	return (
 		<ul className="list-group todo-list">
 			{ elements }
@@ -26,4 +26,8 @@ const TodoList = (props: ITodoListProps): JSX.Element => {
 	);
 };
 
-export default TodoList;
+const mapStateToProps = (state: IState): { dataToShow: IToDo[] } => ({
+	dataToShow: state.dataToShow
+});
+
+export default connect(mapStateToProps)(TodoList);

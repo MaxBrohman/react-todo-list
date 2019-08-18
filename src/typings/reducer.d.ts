@@ -11,8 +11,9 @@ export interface IState {
     loading: boolean;
     error: boolean;
     dataToShow: IToDo[];
-    searchedTodos: IToDo[];
     newTaskLabel: string;
+    activeTasksCount: number;
+    unactiveTasksCount: number;
 }
 
 export interface IToDo {

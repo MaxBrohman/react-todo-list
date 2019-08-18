@@ -1,5 +1,9 @@
 import React from 'react';
-import { IItemStatusButtonProps } from '../../typings/item-status-button';
+import { IItemStatusButtonProps, IMapDispatchToProps } from '../../typings/item-status-button';
+import { connect } from 'react-redux';
+import { Dispatch } from 'redux';
+import { IState } from '../../typings/reducer';
+import { filterTasks } from '../../actions';
 
 import './item-status-button.sass';
 
@@ -18,4 +22,16 @@ const ItemStatusButton = (props: IItemStatusButtonProps): JSX.Element => {
     );
 };
 
-export default ItemStatusButton;
+const mapStateToProps = (state: IState): { filter: string } => {
+    return {
+        filter: state.filter
+    }
+};
+
+const mapDispatchToProps = (dispatch: Dispatch): IMapDispatchToProps => {
+    return {
+        onFilterChange: (filter: string) => dispatch(filterTasks(filter))
+    }
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(ItemStatusButton);

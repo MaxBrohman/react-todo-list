@@ -5,3 +5,7 @@ export interface IItemStatusButtonProps {
     filter: string;
     onFilterChange: (prop: string) => void;
 }
+
+export interface IMapDispatchToProps {
+    onFilterChange: (filter: string) => void;
+}

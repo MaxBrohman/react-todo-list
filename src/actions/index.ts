@@ -13,16 +13,10 @@ export const errorOccured = (): IUpdatedAction => ({
 });
 
 //unique id generates by milliseconds count
-export const itemAdded = (label: string): IUpdatedAction => {
-    const newItem = {
-        label,
-        important: false,
-        done: false,
-        id: (new Date).getTime()
-    };
+export const newItemCreated = (label: string): IUpdatedAction => {
     return {
-        type: 'ITEM_ADDED',
-        payload: newItem
+        type: 'NEW_ITEM_CREATED',
+        payload: label
     }
 };
 
@@ -31,12 +25,9 @@ export const itemDeleted = (id: number): IUpdatedAction => ({
     payload: id
 });
 
-export const showActiveTasks = (): IUpdatedAction => ({
-    type: 'SHOW_ACTIVE_TASKS'
-});
-
-export const showUnactiveTasks = (): IUpdatedAction => ({
-    type: 'SHOW_UNACTIVE_TASKS'
+export const filterTasks = (name: string): IUpdatedAction => ({
+    type: 'FILTER_TASKS',
+    payload: name
 });
 
 export const showSearchedTasks = (term: string): IUpdatedAction => ({
@@ -49,13 +40,12 @@ export const searchOnInput = (term: string): IUpdatedAction => ({
     payload: term
 });
 
-export const taskStatusChanged = (props: {id: number, prop: string} ): IUpdatedAction => ({
+export const taskStatusChanged = (id: number, prop: string): IUpdatedAction => ({
     type: 'TASK_STATUS_CHANGED',
-    payload: props
+    payload: { id, prop }
 });
 
 export const addFormInput = (term: string): IUpdatedAction => ({
     type: 'ADD_FORM_INPUT',
     payload: term
 });
-
