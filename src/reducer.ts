@@ -25,15 +25,21 @@ const countActiveTasks = (todos: IToDo[]): number => {
     return todos.filter(item => !item.done).length;
 };
 
+// filter todos by status
+const filterTodos = (todos: IToDo[], filter: string): IToDo[] => {
+    switch(filter){
+        case 'active':
+            return todos.filter(item => !item.done);
+        case 'done':
+            return todos.filter(item => item.done);
+        default:
+            return todos;
+    }
+};
 
 // filters todos by seacrh term and active filter status
 const getToShowTodos = (todos: IToDo[], term: string, filter: string): IToDo[] => {
-    let tasks;
-    if(filter === 'all'){
-        tasks = todos;
-    } else {
-        tasks = todos.filter(item => (item as any)[filter] !== false);
-    }
+    const tasks = filterTodos(todos, filter);
     if(!term.length) {
         return tasks;
     }
