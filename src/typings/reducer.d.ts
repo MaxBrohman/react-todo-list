@@ -14,12 +14,15 @@ export interface IState {
   newTaskLabel: string;
   activeTasksCount: number;
   unactiveTasksCount: number;
+  newTaskDescription: string;
 }
 
 export interface IToDo {
   label: string;
   important: boolean;
+  veryImportant: boolean;
   done: boolean;
   id: number;
   isEditing: boolean;
+  description: string;
 }

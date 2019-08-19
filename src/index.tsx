@@ -9,7 +9,7 @@ import App from './components/app';
 
 ReactDOM.render(
   <Provider store={store}>
-    <PersistGate loading={Spinner} persistor={persistor}>
+    <PersistGate loading={Spinner()} persistor={persistor}>
       <App />
     </PersistGate>
   </Provider>,

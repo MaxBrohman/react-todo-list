@@ -8,6 +8,7 @@ const initialState = {
   loading: false,
   error: false,
   newTaskLabel: '',
+  newTaskDescription: '',
   activeTasksCount: 0,
   unactiveTasksCount: 0,
 };
@@ -28,6 +29,10 @@ const filterTodos = (todos: IToDo[], filter: string): IToDo[] => {
       return todos.filter(item => !item.done);
     case 'done':
       return todos.filter(item => item.done);
+    case 'important':
+      return todos.filter(item => item.important);
+    case 'veryImportant':
+      return todos.filter(item => item.veryImportant);
     default:
       return todos;
   }
@@ -71,7 +76,7 @@ const reducer = (state: IState = initialState, action: IUpdatedAction): IState =
       };
     }
     case 'ITEM_ADDED': {
-      const updatedTodos = [...state.todoData, action.payload];
+      const updatedTodos = [action.payload, ...state.todoData];
       return {
         ...state,
         todoData: updatedTodos,
@@ -79,6 +84,7 @@ const reducer = (state: IState = initialState, action: IUpdatedAction): IState =
         unactiveTasksCount: updatedTodos.length - countActiveTasks(updatedTodos),
         dataToShow: getToShowTodos(updatedTodos, state.term, state.filter),
         newTaskLabel: '',
+        newTaskDescription: '',
       };
     }
     case 'ITEM_DELETED': {
@@ -122,11 +128,46 @@ const reducer = (state: IState = initialState, action: IUpdatedAction): IState =
         dataToShow: getToShowTodos(updatedTodos, state.term, state.filter),
       };
     }
+    case 'TASK_IMPORTANCE_CHANGED': {
+      const idx = getIndex(state.todoData, action.payload.id);
+      const oldTask: any = state.todoData[idx];
+      const { prop } = action.payload;
+      let changedTask: IToDo;
+      if(prop === 'important'){
+        changedTask = {
+          ...oldTask,
+          important: !oldTask.important,
+          veryImportant: false
+        };
+      } else if (prop === 'veryImportant'){
+        changedTask = {
+          ...oldTask,
+          veryImportant: !oldTask.veryImportant,
+          important: false,
+        };
+      }
+      const beforeTodos = [...state.todoData.slice(0, idx)];
+      const afterTodos = [...state.todoData.slice(idx + 1)];
+      const updatedTodos = [...beforeTodos, changedTask!, ...afterTodos];
+      return {
+        ...state,
+        todoData: updatedTodos,
+        activeTasksCount: countActiveTasks(updatedTodos),
+        unactiveTasksCount: updatedTodos.length - countActiveTasks(updatedTodos),
+        dataToShow: getToShowTodos(updatedTodos, state.term, state.filter),
+      };
+    }
     case 'ADD_FORM_INPUT': {
       return {
         ...state,
         newTaskLabel: action.payload,
       };
+    }
+    case 'TYPING_DESCRIPTION': {
+      return {
+        ...state,
+        newTaskDescription: action.payload
+      }
     }
     case 'FILTER_TASKS': {
       return {

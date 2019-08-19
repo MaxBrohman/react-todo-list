@@ -13,9 +13,12 @@ export const errorOccured = (): IUpdatedAction => ({
 });
 
 // unique id generates by milliseconds count
-export const newItemCreated = (label: string): IUpdatedAction => ({
+export const newItemCreated = (label: string, description: string): IUpdatedAction => ({
   type: 'NEW_ITEM_CREATED',
-  payload: label,
+  payload: {
+    label,
+    description
+  }
 });
 
 export const itemDeleted = (id: number): IUpdatedAction => ({
@@ -64,4 +67,17 @@ export const editingTasks = (label: string, id: number): IUpdatedAction => ({
 export const confirmEditedTask = (id: number): IUpdatedAction => ({
   type: 'CONFIRM_EDITED_TASK',
   payload: id,
+});
+
+export const taskImportanceChanged = (id: number, prop: string): IUpdatedAction => ({
+  type: 'TASK_IMPORTANCE_CHANGED',
+  payload: {
+    prop,
+    id,
+  },
+});
+
+export const typingDescription = (description: string): IUpdatedAction => ({
+  type: 'TYPING_DESCRIPTION',
+  payload: description,
 });

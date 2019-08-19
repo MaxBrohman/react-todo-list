@@ -2,12 +2,14 @@ import { takeEvery, put } from 'redux-saga/effects';
 import { IToDo, IUpdatedAction } from '../typings/reducer';
 
 
-const createNewItem = (label: string): IToDo => ({
+const createNewItem = ({ label, description }: { label: string, description: string }): IToDo => ({
   label,
+  description,
   important: false,
   done: false,
   id: (new Date()).getTime(),
   isEditing: false,
+  veryImportant: false,
 });
 
 function* addNewItem({ payload }: IUpdatedAction): IterableIterator<any> {

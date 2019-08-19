@@ -8,6 +8,8 @@ const buttons: IItemStatusFilterButton[] = [
   { name: 'all', label: 'All' },
   { name: 'active', label: 'Active' },
   { name: 'done', label: 'Done' },
+  { name: 'important', label: 'Important' },
+  { name: 'veryImportant', label: 'Very important' }
 ];
 
 // creates ui for each button type

@@ -10,14 +10,15 @@ import './app.sass';
 const App = (): JSX.Element => (
   <div className="todo-app">
     <AppHeader />
-    <div className="top-panel d-flex">
+    <div className="top-panel d-flex flex-column">
       <SearchPanel />
       <ItemStatusFilter />
+      <ItemAddForm />
     </div>
 
     <TodoList />
 
-    <ItemAddForm />
+    
   </div>
 );
 
