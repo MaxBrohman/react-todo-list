@@ -7,21 +7,18 @@ import ItemAddForm from '../item-add-form';
 
 import './app.sass';
 
-const App = (): JSX.Element => {
+const App = (): JSX.Element => (
+  <div className="todo-app">
+    <AppHeader />
+    <div className="top-panel d-flex">
+      <SearchPanel />
+      <ItemStatusFilter />
+    </div>
 
-	return (
-		<div className="todo-app">
-			<AppHeader />
-			<div className="top-panel d-flex">
-				<SearchPanel />
-				<ItemStatusFilter />
-			</div>
+    <TodoList />
 
-			<TodoList />
-
-			<ItemAddForm />
-		</div>
-	);
-};
+    <ItemAddForm />
+  </div>
+);
 
 export default App;

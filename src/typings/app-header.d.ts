@@ -1,4 +1,4 @@
 export interface IAppHeaderProps {
-    activeCount: number;
-    unactiveCount: number;
+  activeCount: number;
+  unactiveCount: number;
 }

@@ -1,3 +1,15 @@
 {
-    "extends": "airbnb-typescript"
+    "parser": "@typescript-eslint/parser",
+    "extends": [
+        "airbnb-typescript",
+        "plugin:import/errors",
+        "plugin:import/warnings",
+        "plugin:import/typescript",
+    ],
+    "plugins": [
+        "@typescript-eslint"
+    ],
+    "env": {
+        "browser": true,
+    }
 }

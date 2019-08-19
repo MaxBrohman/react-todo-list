@@ -1,4 +1,4 @@
 export interface ISearchPanelProps {
-    onInput: (prop: string) => void;
-    term: string;
+  onInput: (prop: string) => void;
+  term: string;
 }

@@ -1,24 +1,23 @@
 import { takeEvery, put } from 'redux-saga/effects';
-import {  IToDo } from '../typings/reducer';
-import { IUpdatedAction } from '../typings/reducer';
+import { IToDo, IUpdatedAction } from '../typings/reducer';
 
-const createNewItem = (label: string): IToDo => {
-    return {
-        label,
-        important: false,
-        done: false,
-        id: (new Date()).getTime()
-    }
-};
+
+const createNewItem = (label: string): IToDo => ({
+  label,
+  important: false,
+  done: false,
+  id: (new Date()).getTime(),
+  isEditing: false,
+});
 
 function* addNewItem({ payload }: IUpdatedAction): IterableIterator<any> {
-    const newItem = yield createNewItem(payload);
-    yield put({
-        type: 'ITEM_ADDED',
-        payload: newItem
-    })
-};
+  const newItem = yield createNewItem(payload);
+  yield put({
+    type: 'ITEM_ADDED',
+    payload: newItem,
+  });
+}
 
-export function* watchNewItems(): IterableIterator<any> {
-    yield takeEvery('NEW_ITEM_CREATED', addNewItem);
-};
+export default function* watchNewItems(): IterableIterator<any> {
+  yield takeEvery('NEW_ITEM_CREATED', addNewItem);
+}

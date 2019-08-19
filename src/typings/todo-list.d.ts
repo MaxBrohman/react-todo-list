@@ -1,5 +1,5 @@
-import { IToDo } from './app.d';
+import { IToDo } from './reducer';
 
 export interface ITodoListProps {
-    dataToShow: IToDo[];
+  dataToShow: IToDo[];
 }

@@ -1,4 +1,4 @@
 export interface IItemStatusFilterButton {
-    name: string;
-    label: string;
+  name: string;
+  label: string;
 }
