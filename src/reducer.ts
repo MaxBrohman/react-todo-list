@@ -9,8 +9,11 @@ const initialState = {
   error: false,
   newTaskLabel: '',
   newTaskDescription: '',
+  newTaskDate: '',
   activeTasksCount: 0,
   unactiveTasksCount: 0,
+  newTaskHour: '',
+  newTaskMinutes: '',
 };
 
 // helper function to find index of needed element in array
@@ -85,6 +88,9 @@ const reducer = (state: IState = initialState, action: IUpdatedAction): IState =
         dataToShow: getToShowTodos(updatedTodos, state.term, state.filter),
         newTaskLabel: '',
         newTaskDescription: '',
+        newTaskDate: '',
+        newTaskHour:'',
+        newTaskMinutes: '',
       };
     }
     case 'ITEM_DELETED': {
@@ -116,7 +122,18 @@ const reducer = (state: IState = initialState, action: IUpdatedAction): IState =
     case 'TASK_STATUS_CHANGED': {
       const idx = getIndex(state.todoData, action.payload.id);
       const oldTask: any = state.todoData[idx];
-      const changedTask = { ...oldTask, [action.payload.prop]: !oldTask[action.payload.prop] };
+      let changedTask: any;
+      if(!oldTask.done && action.payload.prop === 'done'){
+        let formattedDate = new Date().toLocaleString();
+        formattedDate = formattedDate.slice(0, formattedDate.length - 3);
+        changedTask = { 
+          ...oldTask, 
+          [action.payload.prop]: !oldTask[action.payload.prop],
+          completionDate: formattedDate,
+        };
+      } else {
+        changedTask = { ...oldTask, [action.payload.prop]: !oldTask[action.payload.prop] };
+      } 
       const beforeTodos = [...state.todoData.slice(0, idx)];
       const afterTodos = [...state.todoData.slice(idx + 1)];
       const updatedTodos = [...beforeTodos, changedTask, ...afterTodos];
@@ -167,7 +184,25 @@ const reducer = (state: IState = initialState, action: IUpdatedAction): IState =
       return {
         ...state,
         newTaskDescription: action.payload
-      }
+      };
+    }
+    case 'TYPING_DATE': {
+      return {
+        ...state,
+        newTaskDate: action.payload
+      };
+    }
+    case 'SELECTING_HOUR': {
+      return {
+        ...state,
+        newTaskHour: action.payload
+      };
+    }
+    case 'SELECTING_MINUTES': {
+      return {
+        ...state,
+        newTaskMinutes: action.payload
+      };
     }
     case 'FILTER_TASKS': {
       return {
@@ -176,7 +211,7 @@ const reducer = (state: IState = initialState, action: IUpdatedAction): IState =
         dataToShow: getToShowTodos(state.todoData, state.term, action.payload),
       };
     }
-    case 'EDIT_TASK_NAME': {
+    case 'EDIT_TASK': {
       const idx = getIndex(state.todoData, action.payload);
       const oldTask: any = state.todoData[idx];
       const changedTask = {
@@ -208,13 +243,81 @@ const reducer = (state: IState = initialState, action: IUpdatedAction): IState =
         dataToShow: getToShowTodos(updatedTodos, state.term, state.filter),
       };
     }
-    case 'EDITING_TASK': {
+    case 'EDITING_TASK_NAME': {
       const { id, label } = action.payload;
       const idx = getIndex(state.todoData, id);
       const oldTask: any = state.todoData[idx];
       const changedTask = {
         ...oldTask,
         label,
+      };
+      const beforeTodos = [...state.todoData.slice(0, idx)];
+      const afterTodos = [...state.todoData.slice(idx + 1)];
+      const updatedTodos = [...beforeTodos, changedTask, ...afterTodos];
+      return {
+        ...state,
+        todoData: updatedTodos,
+        dataToShow: getToShowTodos(updatedTodos, state.term, state.filter),
+      };
+    }
+    case 'EDITING_TASK_DESCRIPTION': {
+      const { id, description } = action.payload;
+      const idx = getIndex(state.todoData, id);
+      const oldTask: any = state.todoData[idx];
+      const changedTask = {
+        ...oldTask,
+        description,
+      };
+      const beforeTodos = [...state.todoData.slice(0, idx)];
+      const afterTodos = [...state.todoData.slice(idx + 1)];
+      const updatedTodos = [...beforeTodos, changedTask, ...afterTodos];
+      return {
+        ...state,
+        todoData: updatedTodos,
+        dataToShow: getToShowTodos(updatedTodos, state.term, state.filter),
+      };
+    }
+    case 'EDITING_TASK_DATE': {
+      const { id, date } = action.payload;
+      const idx = getIndex(state.todoData, id);
+      const oldTask: any = state.todoData[idx];
+      const changedTask = {
+        ...oldTask,
+        date,
+      };
+      const beforeTodos = [...state.todoData.slice(0, idx)];
+      const afterTodos = [...state.todoData.slice(idx + 1)];
+      const updatedTodos = [...beforeTodos, changedTask, ...afterTodos];
+      return {
+        ...state,
+        todoData: updatedTodos,
+        dataToShow: getToShowTodos(updatedTodos, state.term, state.filter),
+      };
+    }
+    case 'EDITING_TASK_HOUR': {
+      const { id, hour } = action.payload;
+      const idx = getIndex(state.todoData, id);
+      const oldTask: any = state.todoData[idx];
+      const changedTask = {
+        ...oldTask,
+        hour,
+      };
+      const beforeTodos = [...state.todoData.slice(0, idx)];
+      const afterTodos = [...state.todoData.slice(idx + 1)];
+      const updatedTodos = [...beforeTodos, changedTask, ...afterTodos];
+      return {
+        ...state,
+        todoData: updatedTodos,
+        dataToShow: getToShowTodos(updatedTodos, state.term, state.filter),
+      };
+    }
+    case 'EDITING_TASK_MINUTES': {
+      const { id, minutes } = action.payload;
+      const idx = getIndex(state.todoData, id);
+      const oldTask: any = state.todoData[idx];
+      const changedTask = {
+        ...oldTask,
+        minutes,
       };
       const beforeTodos = [...state.todoData.slice(0, idx)];
       const afterTodos = [...state.todoData.slice(idx + 1)];

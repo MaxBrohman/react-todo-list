@@ -15,6 +15,9 @@ export interface IState {
   activeTasksCount: number;
   unactiveTasksCount: number;
   newTaskDescription: string;
+  newTaskDate: string;
+  newTaskHour: string;
+  newTaskMinutes: string;
 }
 
 export interface IToDo {
@@ -25,4 +28,9 @@ export interface IToDo {
   id: number;
   isEditing: boolean;
   description: string;
+  date: string;
+  hour: string;
+  minutes: string;
+  isOutdated: boolean;
+  completionDate: string;
 }

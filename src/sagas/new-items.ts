@@ -1,8 +1,9 @@
 import { takeEvery, put } from 'redux-saga/effects';
 import { IToDo, IUpdatedAction } from '../typings/reducer';
+import { IcreateNewItems } from '../typings/sagas';
 
 
-const createNewItem = ({ label, description }: { label: string, description: string }): IToDo => ({
+const createNewItem = ({ label, description, date, hour, minutes }: IcreateNewItems): IToDo => ({
   label,
   description,
   important: false,
@@ -10,6 +11,11 @@ const createNewItem = ({ label, description }: { label: string, description: str
   id: (new Date()).getTime(),
   isEditing: false,
   veryImportant: false,
+  date,
+  isOutdated: false,
+  hour,
+  minutes,
+  completionDate: '',
 });
 
 function* addNewItem({ payload }: IUpdatedAction): IterableIterator<any> {
