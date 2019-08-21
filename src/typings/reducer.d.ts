@@ -4,20 +4,26 @@ export interface IUpdatedAction extends Action {
   payload?: any;
 }
 
-export interface IState {
+export interface ITasksFields {
   todoData: IToDo[];
-  term: string;
-  filter: string;
-  loading: boolean;
-  error: boolean;
   dataToShow: IToDo[];
-  newTaskLabel: string;
   activeTasksCount: number;
   unactiveTasksCount: number;
+  term: string;
+  filter: string;
+}
+
+export interface INewTaskFields {
   newTaskDescription: string;
   newTaskDate: string;
   newTaskHour: string;
   newTaskMinutes: string;
+  newTaskLabel: string;
+}
+
+export interface IState {
+  tasksFields: ITasksFields;
+  newTaskFields: INewTaskFields;
 }
 
 export interface IToDo {

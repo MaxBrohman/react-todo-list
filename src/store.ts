@@ -4,7 +4,7 @@ import { persistStore, persistReducer } from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 import hardSet from 'redux-persist/es/stateReconciler/hardSet';
 import watchNewItems from './sagas';
-import reducer from './reducer';
+import reducer from './reducers';
 
 const persistConfig = {
   key: 'root',

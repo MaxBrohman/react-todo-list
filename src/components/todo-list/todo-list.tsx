@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 import { ITodoListProps } from '../../typings/todo-list';
-import TodoListItem from '../todo-list-item';
+import TodoListItemContainer from '../todo-list-item-container';
 import { IState, IToDo } from '../../typings/reducer';
 
 import './todo-list.sass';
@@ -13,7 +13,7 @@ const TodoList = (props: ITodoListProps): JSX.Element => {
     const { id, ...itemProps } = item;
     return (
       <li key={id} className="list-group-item">
-        <TodoListItem
+        <TodoListItemContainer
           {...itemProps}
           id={id}
         />
@@ -28,7 +28,7 @@ const TodoList = (props: ITodoListProps): JSX.Element => {
 };
 
 const mapStateToProps = (state: IState): { dataToShow: IToDo[] } => ({
-  dataToShow: state.dataToShow,
+  dataToShow: state.tasksFields.dataToShow,
 });
 
 export default connect(mapStateToProps)(TodoList);

@@ -26,7 +26,7 @@ const ItemStatusButton = (props: IItemStatusButtonProps): JSX.Element => {
 };
 
 const mapStateToProps = (state: IState): { filter: string } => ({
-  filter: state.filter,
+  filter: state.tasksFields.filter,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): IMapDispatchToProps => ({

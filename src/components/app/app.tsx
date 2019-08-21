@@ -15,10 +15,7 @@ const App = (): JSX.Element => (
       <ItemStatusFilter />
       <ItemAddForm />
     </div>
-
     <TodoList />
-
-    
   </div>
 );
 

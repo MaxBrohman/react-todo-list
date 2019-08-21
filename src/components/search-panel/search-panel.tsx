@@ -4,17 +4,13 @@ import { connect } from 'react-redux';
 import { ISearchPanelProps } from '../../typings/search-panel';
 import { IState } from '../../typings/reducer';
 import { searchOnInput } from '../../actions';
+import { onChangeHelper } from '../../utils';
 
 import './search-panel.sass';
 
 const SearchPanel = (props: ISearchPanelProps): JSX.Element => {
-  // changing state on input to have a controlled componenr and send data to App component
-  const onInputChange = (evt: React.ChangeEvent): void => {
-    const term = (evt.target as HTMLInputElement).value;
-    props.onInput(term);
-  };
 
-  const { term } = props;
+  const { term, onInput } = props;
 
   return (
     <input
@@ -22,13 +18,13 @@ const SearchPanel = (props: ISearchPanelProps): JSX.Element => {
       className="form-control search-input"
       placeholder="type to search"
       value={term}
-      onChange={onInputChange}
+      onChange={onChangeHelper(onInput)}
     />
   );
 };
 
 const mapStateToProps = (state: IState): { term: string } => ({
-  term: state.term,
+  term: state.tasksFields.term,
 });
 
 const mapDispatchToProps = (dispatch: Dispatch): {onInput: (term: string) => void} => ({

@@ -21,8 +21,8 @@ done
 );
 
 const mapStateToProps = (state: IState): IAppHeaderProps => ({
-  activeCount: state.activeTasksCount,
-  unactiveCount: state.unactiveTasksCount,
+  activeCount: state.tasksFields.activeTasksCount,
+  unactiveCount: state.tasksFields.unactiveTasksCount,
 });
 
 export default connect(mapStateToProps)(AppHeader);

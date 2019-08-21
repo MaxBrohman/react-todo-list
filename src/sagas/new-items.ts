@@ -2,7 +2,6 @@ import { takeEvery, put } from 'redux-saga/effects';
 import { IToDo, IUpdatedAction } from '../typings/reducer';
 import { IcreateNewItems } from '../typings/sagas';
 
-
 const createNewItem = ({ label, description, date, hour, minutes }: IcreateNewItems): IToDo => ({
   label,
   description,
