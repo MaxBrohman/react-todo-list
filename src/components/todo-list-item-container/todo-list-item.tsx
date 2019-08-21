@@ -3,9 +3,9 @@ import { connect } from 'react-redux';
 import { Dispatch } from 'redux';
 import { ITodoListItemContainerProps } from '../../typings/todo-list-item';
 import { IState, IToDo } from '../../typings/reducer';
-import {EditableItem} from './editable-item';
+import EditableItem from './editable-item';
 import TodoListItem from './todo-list-item/index';
-import {onChangeHelper, onKeydownHelper, getOptions} from '../../utils';
+import { onChangeHelper, onKeydownHelper, getOptions } from '../../utils';
 import {
   taskStatusChanged, itemDeleted, editingTaskName, editingTaskDescription,
   editTask, confirmEditedTask, taskImportanceChanged, editingTaskDate,
@@ -17,17 +17,16 @@ import './todo-list-item.sass';
 // container component which desides whether or not render edited or editing list item
 const TodoItemContainer = (props: ITodoListItemContainerProps): JSX.Element => {
   const {
-    label, onDeleted, onToggleImportant, onToggleDone, date, 
-    onInputName, done, important, id, isEditing, onEdit, 
+    label, onDeleted, onToggleImportant, onToggleDone, date,
+    onInputName, done, important, id, isEditing, onEdit,
     onConfirmEdit, veryImportant, onToggleVeryImportant, description,
     onInputDescription, onInputDate, hour, minutes,
-    onSelectHour, onSelectMinutes, completionDate
+    onSelectHour, onSelectMinutes, completionDate,
   } = props;
 
   let classNames = 'todo-list-item card';
 
 
-  
   // show editing version of task if user pushed edit button
   if (isEditing) {
     classNames += ' editing';
@@ -51,42 +50,41 @@ const TodoItemContainer = (props: ITodoListItemContainerProps): JSX.Element => {
         minutesOptions={getOptions(60)}
       />
     );
-  } else {
-
-    if (done) {
-      classNames += ' done';
-    }
-  
-    if (important) {
-      classNames += ' important';
-    }
-  
-    if(veryImportant) {
-      classNames += ' veryImportant';
-    }
-
-    classNames += ' edited';
-
-    return (
-      <TodoListItem
-        classNames={classNames}
-        onDeleted={onDeleted}
-        onToggleDone={onToggleDone}
-        onToggleImportant={onToggleImportant}
-        onToggleVeryImportant={onToggleVeryImportant}
-        label={label}
-        onKeyDownHandler={onKeydownHelper(id, 'Enter', onToggleDone)}
-        id={id}
-        onEdit={onEdit}
-        description={description}
-        date={date}
-        hour={hour}
-        minutes={minutes}
-        done={done}
-        completionDate={completionDate}
-      />
-    );
   }
+
+  if (done) {
+    classNames += ' done';
+  }
+
+  if (important) {
+    classNames += ' important';
+  }
+
+  if (veryImportant) {
+    classNames += ' veryImportant';
+  }
+
+  classNames += ' edited';
+
+  return (
+    <TodoListItem
+      classNames={classNames}
+      onDeleted={onDeleted}
+      onToggleDone={onToggleDone}
+      onToggleImportant={onToggleImportant}
+      onToggleVeryImportant={onToggleVeryImportant}
+      label={label}
+      onKeyDownHandler={onKeydownHelper(id, 'Enter', onToggleDone)}
+      id={id}
+      onEdit={onEdit}
+      description={description}
+      date={date}
+      hour={hour}
+      minutes={minutes}
+      done={done}
+      completionDate={completionDate}
+    />
+  );
 };
 
 const mapStateToProps = (state: IState): { todos: IToDo[] } => ({
@@ -99,7 +97,9 @@ const mapDispatchToProps = (dispatch: Dispatch) => ({
   onToggleVeryImportant: (id: number) => dispatch(taskImportanceChanged(id, 'veryImportant')),
   onDeleted: (id: number) => dispatch(itemDeleted(id)),
   onInputName: (label: string, id: number) => dispatch(editingTaskName(label, id)),
-  onInputDescription: (description: string, id: number) => dispatch(editingTaskDescription(description, id)),
+  onInputDescription: (description: string, id: number) => {
+    dispatch(editingTaskDescription(description, id));
+  },
   onEdit: (id: number) => dispatch(editTask(id)),
   onConfirmEdit: (id: number) => dispatch(confirmEditedTask(id)),
   onInputDate: (date: string, id: number) => dispatch(editingTaskDate(date, id)),

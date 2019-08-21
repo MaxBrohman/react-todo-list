@@ -18,7 +18,7 @@ const initialState = {
     newTaskDate: '',
     newTaskHour: '',
     newTaskMinutes: '',
-  }
+  },
 };
 
 const reducer = (state: IState = initialState, action: IUpdatedAction): IState => {
@@ -32,18 +32,19 @@ const reducer = (state: IState = initialState, action: IUpdatedAction): IState =
           todoData: updatedTodos,
           activeTasksCount: countActiveTasks(updatedTodos),
           unactiveTasksCount: updatedTodos.length - countActiveTasks(updatedTodos),
-          dataToShow: getToShowTodos(updatedTodos, state.tasksFields.term, state.tasksFields.filter),
+          dataToShow: getToShowTodos(updatedTodos,
+            state.tasksFields.term, state.tasksFields.filter),
         },
         newTaskFields: {
           newTaskLabel: '',
           newTaskDescription: '',
           newTaskDate: '',
-          newTaskHour:'',
+          newTaskHour: '',
           newTaskMinutes: '',
-        }
+        },
       };
     }
-    
+
     default:
       return {
         // all actions connected with todos array changes comes to updateTasksFields

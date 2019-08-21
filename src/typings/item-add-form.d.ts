@@ -1,6 +1,7 @@
 export interface ImapDispatchToProps {
   onInput: (label: string) => void;
-  onSubmit: (label: string, description: string, date: string, hour: string, minutes: string) => void;
+  onSubmit: (label: string, description: string, date: string,
+    hour: string, minutes: string) => void;
   onDescription: (label: string) => void;
   onDate: (date: string) => void;
   onHour: (hour: string) => void;

@@ -9,7 +9,6 @@ import { onChangeHelper } from '../../utils';
 import './search-panel.sass';
 
 const SearchPanel = (props: ISearchPanelProps): JSX.Element => {
-
   const { term, onInput } = props;
 
   return (

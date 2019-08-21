@@ -1,7 +1,8 @@
 import { IUpdatedAction } from '../typings/reducer';
 
 // unique id generates by milliseconds count
-export const newItemCreated = (label: string, description: string, date: string, hour: string, minutes: string): IUpdatedAction => ({
+export const newItemCreated = (label: string, description: string, date: string,
+  hour: string, minutes: string): IUpdatedAction => ({
   type: 'NEW_ITEM_CREATED',
   payload: {
     label,
@@ -9,7 +10,7 @@ export const newItemCreated = (label: string, description: string, date: string,
     date,
     hour,
     minutes,
-  }
+  },
 });
 
 export const itemDeleted = (id: number): IUpdatedAction => ({

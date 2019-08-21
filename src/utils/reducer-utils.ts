@@ -1,5 +1,6 @@
 import { IToDo, ITasksFields } from '../typings/reducer';
-import {getIndex, getOptimizedString} from './';
+import getIndex from './get-index';
+import getOptimizedString from './get-optimized-string';
 
 // counting active tasks
 export const countActiveTasks = (todos: IToDo[]): number => todos.filter(item => !item.done).length;
@@ -13,42 +14,43 @@ export const updateTodos = (todos: IToDo[], updatedTask: IToDo, idx: number): IT
 
 // filter todos by status
 const filterTodos = (todos: IToDo[], filter: string): IToDo[] => {
-    switch (filter) {
-      case 'active':
-        return todos.filter(item => !item.done);
-      case 'done':
-        return todos.filter(item => item.done);
-      case 'important':
-        return todos.filter(item => item.important);
-      case 'veryImportant':
-        return todos.filter(item => item.veryImportant);
-      default:
-        return todos;
-    }
-  };
+  switch (filter) {
+    case 'active':
+      return todos.filter(item => !item.done);
+    case 'done':
+      return todos.filter(item => item.done);
+    case 'important':
+      return todos.filter(item => item.important);
+    case 'veryImportant':
+      return todos.filter(item => item.veryImportant);
+    default:
+      return todos;
+  }
+};
 
 // filters todos by seacrh term and active filter status
 export const getToShowTodos = (todos: IToDo[], term: string, filter: string): IToDo[] => {
-    const tasks = filterTodos(todos, filter);
-    if (!term.length) {
-      return tasks;
-    }
-    return tasks.filter(item => getOptimizedString(item.label).indexOf(term) > -1);
-  };
+  const tasks = filterTodos(todos, filter);
+  if (!term.length) {
+    return tasks;
+  }
+  return tasks.filter(item => getOptimizedString(item.label).indexOf(term) > -1);
+};
 
 // updates tasks with new prop and state in general
-export const updateTaskProp = (tasksFields: ITasksFields, updatedPropName: string, id: number, updatedPropValue: string | boolean): ITasksFields => {
-    const todos = tasksFields.todoData;
-    const idx = getIndex(todos, id);
-    const oldTask: any = todos[idx];
-    const changedTask = {
-      ...oldTask,
-      [updatedPropName]: updatedPropValue,
-    };
-    const updatedTodos = updateTodos(todos, changedTask, idx);
-    return {
-      ...tasksFields,
-      todoData: updatedTodos,
-      dataToShow: getToShowTodos(updatedTodos, tasksFields.term, tasksFields.filter),
-    };
+export const updateTaskProp = (tasksFields: ITasksFields, updatedPropName: string,
+  id: number, updatedPropValue: string | boolean): ITasksFields => {
+  const todos = tasksFields.todoData;
+  const idx = getIndex(todos, id);
+  const oldTask: any = todos[idx];
+  const changedTask = {
+    ...oldTask,
+    [updatedPropName]: updatedPropValue,
   };
+  const updatedTodos = updateTodos(todos, changedTask, idx);
+  return {
+    ...tasksFields,
+    todoData: updatedTodos,
+    dataToShow: getToShowTodos(updatedTodos, tasksFields.term, tasksFields.filter),
+  };
+};

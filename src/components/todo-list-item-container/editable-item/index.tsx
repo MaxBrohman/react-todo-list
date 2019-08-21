@@ -3,10 +3,10 @@ import { IEditableItemProps } from '../../../typings/todo-list-item';
 
 
 // ui for editing list item
-export const EditableItem = (props: IEditableItemProps): JSX.Element => {
+const EditableItem = (props: IEditableItemProps): JSX.Element => {
   const {
-    label, id, classNames, onLabelChange, onConfirmEdit, 
-    onKeyDownHandler, description, onDescriptionChange, date, 
+    label, id, classNames, onLabelChange, onConfirmEdit,
+    onKeyDownHandler, description, onDescriptionChange, date,
     onDateChange, hour, minutes, onHourChange, onMinutesChange,
     hourOptions, minutesOptions,
   } = props;
@@ -21,28 +21,28 @@ export const EditableItem = (props: IEditableItemProps): JSX.Element => {
           onKeyDown={onKeyDownHandler}
           type="text"
         />
-        <input 
-          className="todo-list-item-date" 
-          type="date" 
+        <input
+          className="todo-list-item-date"
+          type="date"
           title="Until when the task must be done"
           onChange={onDateChange}
           value={date}
           onKeyDown={onKeyDownHandler}
         />
-        <select 
-          name="hour" 
-          id="hour" 
-          className="item-add-form-time-select" 
+        <select
+          name="hour"
+          id="hour"
+          className="item-add-form-time-select"
           value={hour}
           onChange={onHourChange}
           title="set time"
         >
           { hourOptions }
         </select>
-        <select 
-          name="minutes" 
-          id="minutes" 
-          className="item-add-form-time-select" 
+        <select
+          name="minutes"
+          id="minutes"
+          className="item-add-form-time-select"
           value={minutes}
           onChange={onMinutesChange}
           title="set time"
@@ -59,7 +59,8 @@ export const EditableItem = (props: IEditableItemProps): JSX.Element => {
       </div>
 
       <div className="card-body">
-        <input type="text"
+        <input
+          type="text"
           className="todo-list-item-description card-text"
           onChange={onDescriptionChange}
           onKeyDown={onKeyDownHandler}
@@ -70,3 +71,5 @@ export const EditableItem = (props: IEditableItemProps): JSX.Element => {
     </div>
   );
 };
+
+export default EditableItem;
