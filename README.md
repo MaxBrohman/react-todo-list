@@ -1,3 +1,2 @@
-React Todo Application
+React Redux Todo Application
 -----
-Учебный проект Udemy. Todo приложение, выполненное с применением React и Bootstrap.
